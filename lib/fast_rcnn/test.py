@@ -12,9 +12,9 @@ import argparse
 from utils.timer import Timer
 import numpy as np
 import cv2
-import caffe
+# import caffe
 from utils.cython_nms import nms
-import cPickle
+# import cPickle
 import heapq
 from utils.blob import im_list_to_blob
 import os
@@ -307,7 +307,7 @@ def test_net(net, imdb):
                 vis_detections(im, imdb.classes[j], all_boxes[j][i][keep, :])
         _t['misc'].toc()
 
-        print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
+        print ('im_detect: {:d}/{:d} {:.3f}s {:.3f}s') \
               .format(i + 1, num_images, _t['im_detect'].average_time,
                       _t['misc'].average_time)
 
@@ -320,8 +320,8 @@ def test_net(net, imdb):
     with open(det_file, 'wb') as f:
         cPickle.dump(all_boxes, f, cPickle.HIGHEST_PROTOCOL)
 
-    print 'Applying NMS to all detections'
+    print ('Applying NMS to all detections')
     nms_dets = apply_nms(all_boxes, cfg.TEST.NMS)
 
-    print 'Evaluating detections'
+    print ('Evaluating detections')
     imdb.evaluate_detections(nms_dets, output_dir)
